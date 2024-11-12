@@ -1,4 +1,3 @@
-use std::fmt::format;
 
 #[derive(Debug)]
 struct Account {
@@ -60,6 +59,10 @@ impl  Bank {
         map(|account|account.sum()).
         collect::<Vec<String>>()
     } 
+
+    fn find_account_by_id (&self, id:u32) -> Option<&Account> {
+        self.accounts.iter().find(|account|account.id==id)
+    }
 }
 
 
@@ -67,14 +70,52 @@ impl  Bank {
 
 fn main() {
 let mut bank = Bank::new();
-let mut account = Account::new(1, String::from("samet"));
+let mut account1 = Account::new(1, String::from("samet"));
+let mut account2 = Account::new(2, String::from("ali"));
+let mut account3 = Account::new(3, String::from("zeynep"));
+let mut account4 = Account::new(4, String::from("emir"));
+let mut account5 = Account::new(5, String::from("kartacalı"));
 
-account.deposit(500);
-account.withdraw(100);
-bank.add_account(account);
+
+account1.deposit(500);
+account1.withdraw(100);
+
+account2.deposit(600);
+
+account3.deposit(700);
+
+account4.deposit(800);
+account5.deposit(1000);
+account5.withdraw(999);
+
+bank.add_account(account1);
+bank.add_account(account2);
+bank.add_account(account3);
+bank.add_account(account4);
+bank.add_account(account5);
+
+
+let account_id = 3;
+if let Some(account) = bank.find_account_by_id(account_id) {
+    println !("{} isimli kullanıcının hesap bakiyesi {}", account.name, account.balance)
+}
+
+println!("-------------------");
+
+
 
 println!("{:#?}",bank);
 
-println!("{:#?}", bank.sum());
-println!("The total balance is {:#?}",bank.total_balance())
+
+println!("-------------------");
+
+
+
+println!("{:#?}",bank.sum());
+
+
+println!("-------------------");
+
+
+println!("The total balance is {:#?}",bank.total_balance());
 }
