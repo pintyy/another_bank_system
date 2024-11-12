@@ -70,7 +70,7 @@ let mut bank = Bank::new();
 let mut account = Account::new(1, String::from("samet"));
 
 account.deposit(500);
-account.withdraw(00);
+account.withdraw(100);
 bank.add_account(account);
 
 println!("{:#?}",bank);
